@@ -11,6 +11,7 @@ There should be 5 endpoints for the API
 - create note
 - delete note
 - update note (updates the title and description)
+
 Addition: Insert a Validation
 
 You don't need to use a database yet. Just use a list in your API that would represent the database
