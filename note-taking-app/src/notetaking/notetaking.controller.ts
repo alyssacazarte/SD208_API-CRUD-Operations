@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -6,6 +7,9 @@ import {
   Param,
   Patch,
   Post,
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateNoteDto } from 'src/dtos/create-notetaking.dto';
 import { Notes } from './notetaking.model';
@@ -23,6 +27,7 @@ export class NoteTakingController {
     return this.notetakingService.getNotes();
   }
   @Post('create')
+  @UsePipes(new ValidationPipe({ transform: true }))
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createNote(@Body() body: CreateNoteDto): Notes {
     return this.notetakingService.createNote(body);
