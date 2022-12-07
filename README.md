@@ -17,7 +17,11 @@ Addition: Insert a Validation
 You don't need to use a database yet. Just use a list in your API that would represent the database
 
 Group Name Members:
+
 Alyssa Cazarte
+
 Mary Grace Elias
+
 Prescilla Pable
+
 Mary Joy Reambonanza
