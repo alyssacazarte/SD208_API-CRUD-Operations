@@ -7,12 +7,14 @@ import {
   Param,
   Patch,
   Post,
-  UseInterceptors,
+  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateNoteDto } from 'src/dtos/create-notetaking.dto';
-import { Notes } from './notetaking.model';
+import { GetNotesFilterDto } from 'src/dtos/get-notetaking-filter.dto';
+import { NotesStatusValidationPipe } from 'src/pipes/notes-status-validation.pipe';
+import { Notes, NotesStatus } from './notetaking.model';
 import { NoteTakingService } from './notetaking.service';
 
 @Controller('notes')
@@ -23,8 +25,9 @@ export class NoteTakingController {
     return this.notetakingService.getNote(id);
   }
   @Get()
-  getNotes() {
-    return this.notetakingService.getNotes();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getNotes(@Query(ValidationPipe)filterDto: GetNotesFilterDto) {
+    return this.notetakingService.getNotes(filterDto);
   }
   @Post('create')
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -39,9 +42,8 @@ export class NoteTakingController {
   @Patch(':id')
   updateTask(
     @Param('id') id: string,
-    @Body('notetitle') notetitle: string,
-    @Body('description') description: string,
+    @Body('status', NotesStatusValidationPipe) status: NotesStatus
   ): Notes {
-    return this.notetakingService.updateNote(id, notetitle, description);
+    return this.notetakingService.updateNote(id, status);
   }
 }

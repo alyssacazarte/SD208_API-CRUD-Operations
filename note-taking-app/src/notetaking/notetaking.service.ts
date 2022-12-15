@@ -1,13 +1,26 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNoteDto } from 'src/dtos/create-notetaking.dto';
-import { Notes } from './notetaking.model';
+import { Notes, NotesStatus } from './notetaking.model';
 import { v4 as uuidv4 } from 'uuid';
+import { GetNotesFilterDto } from 'src/dtos/get-notetaking-filter.dto';
+import { statSync } from 'fs';
 
 @Injectable()
 export class NoteTakingService {
   private notes: Notes[] = [];
-  getNotes(): Notes[] {
-    return this.notes;
+  getNotes(filterDto: GetNotesFilterDto): Notes[] {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const {status, search} = filterDto;
+    let notes = this.notes;
+    if(status){
+      notes = notes.filter(x => x.status === status);
+    }
+    if(search){
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      notes = notes.filter(x => x.notetitle.includes(search) || x.description.includes(search));
+    }
+    return notes;
   }
   getNote(id: string): Notes {
     const note = this.notes.find((note) => note.id == id);
@@ -25,6 +38,7 @@ export class NoteTakingService {
       id: uuidv4(),
       notetitle,
       description,
+      status: NotesStatus.OPEN
     };
     this.notes.push(newNote);
     return newNote;
@@ -33,10 +47,9 @@ export class NoteTakingService {
     const result = this.getNote(id);
     this.notes = this.notes.filter((note) => note.id !== result.id);
   }
-  updateNote(id: string, notetitle: string, description: string): Notes {
+  updateNote(id: string, status: NotesStatus): Notes {
     const note = this.getNote(id);
-    note.notetitle = notetitle;
-    note.description = description;
+    note.status = status;
     return note;
   }
 }
