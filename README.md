@@ -13,13 +13,21 @@ There should be 5 endpoints for the API
 - update note (updates the title and description)
 
 Addition1: 
+
 *Insert a Validation
+
 Addition2:
+
 *Validate fields for createNotesDto
+
 *Create a filter DTO for get all endpoint
+
 *Query parameters - search and status
+
 *Must return a list based on the query parameters
+
 *If query params are not used, it should return all
+
 *Create a custom pipe to validate the status field in the request body of update endpoint
 
 
