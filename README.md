@@ -12,7 +12,17 @@ There should be 5 endpoints for the API
 - delete note
 - update note (updates the title and description)
 
-Addition: Insert a Validation
+Addition1: 
+*Insert a Validation
+Addition2:
+*Validate fields for createNotesDto
+*Create a filter DTO for get all endpoint
+*Query parameters - search and status
+*Must return a list based on the query parameters
+*If query params are not used, it should return all
+*Create a custom pipe to validate the status field in the request body of update endpoint
+
+
 
 You don't need to use a database yet. Just use a list in your API that would represent the database
 
