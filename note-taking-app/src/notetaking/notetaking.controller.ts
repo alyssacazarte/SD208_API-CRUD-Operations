@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -20,30 +21,31 @@ import { NoteTakingService } from './notetaking.service';
 @Controller('notes')
 export class NoteTakingController {
   constructor(private notetakingService: NoteTakingService) {}
-  @Get(':id')
-  getNote(@Param('id') id: string) {
-    return this.notetakingService.getNote(id);
-  }
   @Get()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getNotes(@Query(ValidationPipe)filterDto: GetNotesFilterDto) {
-    return this.notetakingService.getNotes(filterDto);
+  getNotes() {
+    return this.notetakingService.getNotes();
   }
+  @Get(':id')
+  getNote(@Param('id',ParseIntPipe) id: number) {
+    return this.notetakingService.getNote(id);
+  }
+  
   @Post('create')
   @UsePipes(new ValidationPipe({ transform: true }))
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  createNote(@Body() body: CreateNoteDto): Notes {
+  createNote(@Body() body: CreateNoteDto){
     return this.notetakingService.createNote(body);
   }
   @Delete(':id')
-  deleteNote(@Param('id') id: string): void {
+  deleteNote(@Param('id', ParseIntPipe) id: number): void {
     this.notetakingService.deleteNote(id);
   }
   @Patch(':id')
   updateTask(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body('status', NotesStatusValidationPipe) status: NotesStatus
-  ): Notes {
+  ) {
     return this.notetakingService.updateNote(id, status);
   }
 }
