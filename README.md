@@ -12,6 +12,8 @@ There should be 5 endpoints for the API
 - delete note
 - update note (updates the title and description)
 
+You don't need to use a database yet. Just use a list in your API that would represent the database
+
 Addition1: 
 
 *Insert a Validation
@@ -33,10 +35,6 @@ Addition2:
 Addition3:
 
 *TypeORM and MySQL
-
-
-
-You don't need to use a database yet. Just use a list in your API that would represent the database
 
 Group Name Members:
 
