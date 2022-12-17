@@ -30,6 +30,10 @@ Addition2:
 
 *Create a custom pipe to validate the status field in the request body of update endpoint
 
+Addition3:
+
+*TypeORM and MySQL
+
 
 
 You don't need to use a database yet. Just use a list in your API that would represent the database
